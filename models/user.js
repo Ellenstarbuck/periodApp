@@ -10,6 +10,23 @@ const userSchema = new mongoose.Schema({ // Bulding a schema just like our anima
   timestamps: true // provides a createdAt, and updatedAt field that work out of the box for free!
 })
 
+userSchema.virtual('createdPeriods', {
+  ref: 'PeriodDay',
+  localField: '_id',
+  foreignField: 'user'
+})
+
+
+userSchema
+  .set('toJSON', {
+    virtuals: true,
+    transform(doc, json) {
+      delete json.password
+      delete json.email
+      return json
+    }
+  })
+
 
 userSchema.methods.validatePassword = function validatePassword(password) {// our own methods attached to our user model to validate if a password is correct at login. 
   return bcrypt.compareSync(password, this.password) // bcyrpt hashes the password our user is trying to login with the same it hashed the one stored in the DB when they registered, it then compares them for us to see if they match, and returns true or false depending on the outcome
