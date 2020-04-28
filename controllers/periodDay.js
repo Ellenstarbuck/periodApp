@@ -1,6 +1,7 @@
 const PeriodDay = require('../models/periodDay')
 const User = require('../models/user')
 
+
 //user gets all their periods back
 
 function index(req, res) {
@@ -12,6 +13,19 @@ function index(req, res) {
         return res.status(200).json(user)
       }) 
       .catch(err => res.json(err))
+}
+
+//user can delete their periods
+//not working
+function destroyProfile(req, res, next) {
+  req.body.user = req.currentUser
+  User
+    .findByIdAndDelete(req.currentUser._id)
+    .then(period => {
+      if (!period.user.equals(req.currentUser._id)) throw new Error('Unauthorized')
+    })
+    .then(() => res.status(204).json({ message: 'successfully deleted'}))
+    .catch(next)
 }
 
 //user makes a new period
@@ -68,4 +82,4 @@ function show(req, res, next) {
     .catch(next) 
 }
 
-module.exports = { index, show, create, update, destroy }
+module.exports = { index, show, create, update, destroy, destroyProfile }

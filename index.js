@@ -6,7 +6,8 @@ const router = require('./config/router')
 app.use(bodyParser.json())
 const { port, dbURI } = require('./config/environment')
 const logger = require('./lib/logger')
-app.use(logger)  
+const errorHandler = require('./lib/errorHandler')
+ 
 
 mongoose.connect(
   dbURI, 
@@ -16,7 +17,7 @@ mongoose.connect(
     console.log('Mongo is connected')
   })
 
-
+app.use(express.static(`${__dirname}/dist`))
 
 app.use((req, res, next) => {
   console.log(`Ìncoming ${req.method} to ${req.url}`)
@@ -24,6 +25,18 @@ app.use((req, res, next) => {
 })
 
 
-app.use(router)
+
+app.use(bodyParser.json())
+
+app.use(logger) 
+
+app.use('/api', router)
+
+app.use(errorHandler)
+
+app.get('/*', (req, res) => res.sendFile(`${__dirname}/dist/index.html`))
 
 app.listen(port, () => console.log(`I am the backend, I hear all, I am listening at ${port}`))
+// app.listen(4000, () => console.log('Static server on port 4000'))
+
+module.exports = app

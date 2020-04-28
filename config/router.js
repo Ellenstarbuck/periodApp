@@ -1,13 +1,17 @@
 const router = require('express').Router()
 const periodDay = require('../controllers/periodDay')
 const users = require('../controllers/auth')
+const period = require('../controllers/periodFirst')
 const secureRoute = require('../lib/secureRoute')
 
+router.route('/period/first')
+  .post(secureRoute, period.create)
 
 //all the periods
 router.route('/periods')
   .get(secureRoute, periodDay.index)
   .post(secureRoute, periodDay.create)
+  .delete(secureRoute, periodDay.destroyProfile)
 
 //one of the periods
 router.route('/periods/:id')
@@ -23,6 +27,8 @@ router.route('/register')
 router.route('/login')
   .post(users.login)  
 
+router.route('/*')
+  .all((req, res) => res.status(404).json({ message: 'Route Not Found' }))
 
 
 module.exports = router
