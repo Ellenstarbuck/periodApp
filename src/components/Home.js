@@ -6,8 +6,8 @@ import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import moment from 'moment'
+import CircularIndeterminate from '../common/CircularIndeterminate'
 
 const Home = () => {
 
@@ -19,19 +19,12 @@ const Home = () => {
   })
 
   const [nextPeriod, setNextPeriod] = useState(null)
-  
-
-
-  const [errors, setErrors] = useState(null)
-
-
-  //disabled
-  //loading
-  //erroralert
+  const [errors, setErrors] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [disabled, setDisabled] = useState(false)
 
   const handleDateChange = (date) => {
     const result = moment(date).format('MM-DD-YYYY')
-    console.log(result)
     setData({ ...data, dateOfPeriod: result })
   }
 
@@ -41,15 +34,19 @@ const Home = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    setLoading(true)
+    setErrors(false)
+    setDisabled(true)
     try {
       const res = await axios.post('/api/home', data)
       if (res.data.nextPeriod) {
       setNextPeriod(res.data.nextPeriod)
   }
     } catch (err) {
-      setErrors(err.response.data.errors)
-    
+      setErrors(true)
     }
+    setLoading(false)
+    setDisabled(false)
   }
 
   
@@ -99,16 +96,23 @@ const Home = () => {
             type="submit"
             variant="contained"
             color="primary"
-            label="Submit"
+            disabled={disabled}
           >
-            Submit
+            { disabled ? "Submitting" : "Submit" }
           </Button> 
         </form> 
-       <form>
-         <div>
+        <div>
             <h1>Your next period is due on {nextPeriod}</h1>
-         </div>
-      </form> 
+        </div>
+        { errors && (
+          <div>
+            <h1>An error occured, please reload the page</h1>
+          </div>
+        )}
+        <CircularIndeterminate 
+          loading={loading}
+        />
+      
       </>
     )
   
