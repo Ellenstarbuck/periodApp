@@ -1,12 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-//imort material UI
-//import Bulma
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+//import material UI
+import Home from './components/Home'
+
 
 
 
 const App = () => (
-  <h1>Hey</h1>
+  <BrowserRouter>
+    <main>
+      <Switch>
+        <Route exact path="/home"component={Home}/>
+      </Switch>
+    </main>
+  </BrowserRouter>
 )
 
 

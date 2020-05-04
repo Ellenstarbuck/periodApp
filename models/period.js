@@ -1,11 +1,12 @@
 const mongoose = require ('mongoose')
+const moment = require('moment')
 
 
 const periodSchema = new mongoose.Schema({
-  dateOfPeriod: { type: Date, required: true },
+  dateOfPeriod: { type: Date, default: Date.now, required: true },
   daysOfPeriod: { type: Number, min: 1, max: 10, required: true },
   cycleLength: { type: Number, min: 21, max: 45, required: true },
-  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: true },
+  user: { type: mongoose.Schema.ObjectId, ref: 'User', required: false },
 }, {
   timestamps: true 
 })

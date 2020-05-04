@@ -17,7 +17,7 @@ mongoose.connect(
     console.log('Mongo is connected')
   })
 
-app.use(express.static(`${__dirname}/dist`))
+
 
 app.use((req, res, next) => {
   console.log(`Ìncoming ${req.method} to ${req.url}`)
@@ -34,7 +34,10 @@ app.use('/api', router)
 
 app.use(errorHandler)
 
+app.use(express.static(`${__dirname}/dist`))
+app.use(express.static(`${__dirname}/public`))
 app.get('/*', (req, res) => res.sendFile(`${__dirname}/dist/index.html`))
+
 
 app.listen(port, () => console.log(`I am the backend, I hear all, I am listening at ${port}`))
 // app.listen(4000, () => console.log('Static server on port 4000'))

@@ -4,8 +4,8 @@ const users = require('../controllers/auth')
 const period = require('../controllers/periodFirst')
 const secureRoute = require('../lib/secureRoute')
 
-router.route('/period/first')
-  .post(secureRoute, period.create)
+router.route('/home')
+  .post(period.create)
 
 //all the periods
 router.route('/periods')
