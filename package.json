@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@date-io/date-fns": "1.x",
+    "@date-io/dayjs": "1.x",
+    "@date-io/luxon": "1.x",
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
@@ -21,15 +23,18 @@
     "body-parser": "^1.19.0",
     "bulma": "^0.8.2",
     "date-fns": "^2.12.0",
+    "dayjs": "^1.8.26",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
+    "luxon": "^1.24.1",
     "material-ui-number-input": "^5.0.24",
     "moment": "^2.24.0",
     "mongoose": "^5.9.9",
     "mongoose-unique-validator": "^2.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-material-ui-calendar": "^0.2.3",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {

@@ -6,13 +6,17 @@ import PeriodCard from '../components/PeriodCard'
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
+import LuxonUtils from '@date-io/luxon';
+import {MuiPickersUtilsProvider, KeyboardDatePicker, DatePicker} from '@material-ui/pickers';
+import { Badge } from "@material-ui/core";
+import moment from 'moment'
 
 
 const PeriodIndex = () => {
 
   const[data, setData] = useState([])
   const[userName, setUserName] = useState([])
+  const[periodDate, setPeriodDate] = useState(["20200523", "20200522"])
   const [errors, setErrors] = useState(false)
   const [loading, setLoading] = useState(false)
   const [date, changeDate] = useState(new Date());
@@ -25,7 +29,10 @@ const PeriodIndex = () => {
         const res = await axios.get('api/periods' , {
           headers: { Authorization: `Bearer ${Auth.getToken()}` }
         })
-        const newSymptoms = res.data.createdPeriods     
+        
+        const newSymptoms = res.data.createdPeriods 
+        
+
         setData(newSymptoms)
         setUserName(res.data)
       } catch (err) {
@@ -36,6 +43,7 @@ const PeriodIndex = () => {
     } 
     fetchPeriods()
   }, [])
+
 
   
   if (!data) return null
@@ -60,11 +68,16 @@ const PeriodIndex = () => {
               openTo="date"
               value={date}
               onChange={changeDate}
+              renderDay={(date, selectedDate, isInCurrentMonth, dayComponent ) => {
+                const isSelected = isInCurrentMonth && periodDate.includes(moment(date).format('YYYYMMDD'))
+                console.log(moment(date).format())
+                console.log(periodDate)
+
+                  return <Badge badgeContent={isSelected ? "🌚" : undefined}>{dayComponent}</Badge>
+              }}
               format="dd/MM/yyyy"
               margin="normal"
               id="date-picker-inline"
-              // label="Start date of last period"
-              // name="dateOfPeriod"
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}
