@@ -23,6 +23,7 @@ userSchema
     transform(doc, json) {
       delete json.password
       delete json.email
+      delete json.timestamps
       return json
     }
   })

@@ -50,41 +50,38 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true}, (err
       {
       periodToday: true,
       date: '2020-04-18T00:00:00.0000',
-      symptoms: [ 
+      symptoms:  
         {
           bleeding: 'spotting',
           cramps: 'a mild twinge',
           mood: 'I would probably cry over spilt milk',
           bloats: 'farty'
-        }
-      ],
+        },
       user: createdUsers[0]
       },
       {
         periodToday: true,
         date: '2020-04-19T00:00:00.0000',
-        symptoms: [ 
+        symptoms: 
           {
             bleeding: 'light',
             cramps: 'the worst',
             mood: 'normal, whatever that is',
             bloats: 'nauseous',
             foodCravings: 'none'
-          }
-        ],
+          },
         user: createdUsers[0]
         },
         {
           periodToday: true,
           date: '2020-04-19T00:00:00.0000',
-          symptoms: [ 
+          symptoms: 
             {
               bleeding: 'it\'s like when the lift doors open in The Shining',
               cramps: 'distracting but beareable',
               boobs: 'they\'re okay, thanks for asking',
               energy: 'I could party',
-            }
-          ],
+            },
           user: createdUsers[1]
         }
     ])
