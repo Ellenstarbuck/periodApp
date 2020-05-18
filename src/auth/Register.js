@@ -31,7 +31,6 @@ const Register = () => {
     setLoading(true)
     try {
       await axios.post('/api/register', data)
-      console.log(data)
       history.push('/login')
     } catch (err) {
       setErrors(err.response.data.errors)

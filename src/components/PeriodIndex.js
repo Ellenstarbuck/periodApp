@@ -7,7 +7,7 @@ import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import LuxonUtils from '@date-io/luxon';
-import {MuiPickersUtilsProvider, KeyboardDatePicker, DatePicker} from '@material-ui/pickers';
+import {MuiPickersUtilsProvider, KeyboardDatePicker, DatePicker } from '@material-ui/pickers';
 import { Badge } from "@material-ui/core";
 import moment from 'moment'
 
@@ -16,10 +16,11 @@ const PeriodIndex = () => {
 
   const[data, setData] = useState([])
   const[userName, setUserName] = useState([])
-  const[periodDate, setPeriodDate] = useState(["20200523", "20200522"])
+  const[periodDate, setPeriodDate] = useState([])
   const [errors, setErrors] = useState(false)
   const [loading, setLoading] = useState(false)
   const [date, changeDate] = useState(new Date());
+  const [selected, setIsSelected] = useState()
  
 
   useEffect(() => {
@@ -31,10 +32,16 @@ const PeriodIndex = () => {
         })
         
         const newSymptoms = res.data.createdPeriods 
-        
-
         setData(newSymptoms)
         setUserName(res.data)
+        const newDate = res.data.createdPeriods.map(period => {
+          return period.date
+        })
+        const newNewDate = newDate.map(date => {
+          return moment(date).format('YYYYMMDD')
+        })
+        setPeriodDate(newNewDate)
+        
       } catch (err) {
         setErrors(err.res.data.errors)
         
@@ -44,22 +51,16 @@ const PeriodIndex = () => {
     fetchPeriods()
   }, [])
 
+  
+
+  
 
   
   if (!data) return null
   return(
     <div>
-      <h1>{userName.username}</h1>
-      { data.map(period => <PeriodCard key={period._id} { ...period }/>)}
-      <CircularIndeterminate 
-          loading={loading}
-        />
-      { errors && (
-        <div>
-          <h1>Oh no something went wrong</h1>
-        </div>  
-      )}
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <h1>{userName.username}: Period Profile</h1>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
             <KeyboardDatePicker
               autoOk
@@ -70,20 +71,35 @@ const PeriodIndex = () => {
               onChange={changeDate}
               renderDay={(date, selectedDate, isInCurrentMonth, dayComponent ) => {
                 const isSelected = isInCurrentMonth && periodDate.includes(moment(date).format('YYYYMMDD'))
-                console.log(moment(date).format())
-                console.log(periodDate)
-
-                  return <Badge badgeContent={isSelected ? "🌚" : undefined}>{dayComponent}</Badge>
+                  return <Badge badgeContent={isSelected ? "🔴" : undefined}>{dayComponent}</Badge>
               }}
               format="dd/MM/yyyy"
               margin="normal"
               id="date-picker-inline"
               KeyboardButtonProps={{
                 'aria-label': 'change date',
+            
               }}
             />
           </Grid>
-    </MuiPickersUtilsProvider>
+    </MuiPickersUtilsProvider>   
+    <br />
+    <br /> 
+       {data.map(element => {
+         if (moment(date).format('YYYYMMDD') === moment(element.date).format('YYYYMMDD')) {
+           return <PeriodCard key={element._id} { ...element }/>
+         } 
+      })}       
+     
+      <CircularIndeterminate 
+          loading={loading}
+        />
+      { errors && (
+        <div>
+          <h1>Oh no something went wrong</h1>
+        </div>  
+      )}
+    
 
     </div>
   )

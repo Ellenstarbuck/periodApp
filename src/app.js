@@ -6,6 +6,8 @@ import Home from './components/Home'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import PeriodIndex from './components/PeriodIndex'
+import PeriodEdit from './components/PeriodEdit'
+import PeriodNew from './components/PeriodNew'
 
 
 const App = () => (
@@ -13,9 +15,13 @@ const App = () => (
     <main>
       <Switch>
         <Route exact path="/home"component={Home}/>
+        <Route path="/periods/:id/edit" component={PeriodEdit} />
+        <Route path="/periods/new" component={PeriodNew} />
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        
         <Route path="/periods" component={PeriodIndex} />
+        
       </Switch>
     </main>
   </BrowserRouter>
