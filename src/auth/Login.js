@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularIndeterminate from '../common/CircularIndeterminate'
 import Auth from '../lib/Auth';
-
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
 
@@ -21,6 +21,8 @@ const Login = () => {
     setData({ ...data, [e.target.name] : e.target.value })
   }
 
+  const history = useHistory()
+
   const handleSubmit = async e => {
     e.preventDefault()
     setDisabled(true)
@@ -28,7 +30,7 @@ const Login = () => {
     try {
       const res = await axios.post('/api/login', data)
       Auth.setToken(res.data.token)
-      console.log(data)
+      history.push('/periods')
     } catch (err) {
       setErrors(err.response.data.errors)
     }

@@ -71,12 +71,10 @@ function destroy(req, res, next) {
 //user gets one of their periods back
 
 function show(req, res, next) {
-  req.body.user = req.currentUser
   PeriodDay
     .findById(req.params.id)
     .then(period => {
       if (!period) throw new Error ('Not Found')
-      if (!period.user.equals(req.currentUser._id)) throw new Error ('Unauthorized') 
       return res.status(200).json(period)
     }) 
     .catch(next) 

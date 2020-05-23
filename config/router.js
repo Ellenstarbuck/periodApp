@@ -15,7 +15,7 @@ router.route('/periods')
 
 //one of the periods
 router.route('/periods/:id')
-  .get(secureRoute, periodDay.show)
+  .get(periodDay.show)
   .put(secureRoute, periodDay.update)
   .delete(secureRoute, periodDay.destroy)
 
