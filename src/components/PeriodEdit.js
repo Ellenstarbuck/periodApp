@@ -4,7 +4,7 @@ import PeriodForm from './PeriodForm'
 import { useHistory } from 'react-router-dom';
 import { useParams} from "react-router"
 import { matchPath} from "react-router"
-
+import Auth from '../lib/Auth'
 
 const PeriodEdit = () => {
 
@@ -29,17 +29,17 @@ const PeriodEdit = () => {
   const [loading, setLoading] = useState(false)
 
 
-  // const periodId = useParams()
+ 
   
   const history = useHistory()
-  const periodId = match.params.id
+  const params = useParams()
 
   useEffect(() => {
     const fetchPeriods= async() => {
       setLoading(true)
-      console.log(periodId)
+      
       try {
-        const res = await axios.get(`/api/periods/${periodId}`)
+        const res = await axios.get(`/api/periods/${params.id}`)
         setData(res.data)   
       } catch (err) {
         setErrors(err.res.data.errors)
@@ -66,34 +66,18 @@ const PeriodEdit = () => {
     e.preventDefault()
     setDisabled(true)
     setLoading(true)
-    console.log(data)
     try {
-      const { data } = await axios.put(`/api/periods/${periodId}`, data, {
+        await axios.put(`/api/periods/${params.id}`, data, {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      history.push(`/periods/${data._id}`)
+      history.push(`/periods/`)
     } catch (err) {
-      setErrors(err.response.data.errors)
+      setErrors(err.data.errors)
     }
     setDisabled(false)
     setLoading(false)
   }
   
-  
-  // const handleDelete = async() => {
-  //   try {
-  //     await axios.delete(`/api/periods/${periodId}/`, {
-  //       headers: { Authorization: `Bearer ${Auth.getToken()}` }
-  //     })
-  //     history.push('/periods')
-  //   } catch (err) {
-  //     history.push('/notfound')
-  //   }
-  // }
-
-
-
-
   
   return(
       <div>
