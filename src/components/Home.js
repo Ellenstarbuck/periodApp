@@ -22,6 +22,7 @@ const Home = () => {
   const [errors, setErrors] = useState(false)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(false)
+  const [showPeriod, setShowPeriod] = useState(true)
 
   const handleDateChange = (date) => {
     const result = moment(date).format('MM-DD-YYYY')
@@ -49,11 +50,22 @@ const Home = () => {
     setDisabled(false)
   }
 
-  
+  const togglePeriod = () => {
+    setShowPeriod(!showPeriod)
+  }
   
   return (
     
     <>
+      <Button
+      type="submit"
+      variant="contained"
+      color="primary"
+      onClick={togglePeriod}
+      >
+       Want to work out when your next period is due?
+      </Button>
+      { showPeriod === true ? <div>  
     <form onSubmit={handleSubmit}>
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
@@ -104,6 +116,8 @@ const Home = () => {
         <div>
             <h1>Your next period is due on {nextPeriod}</h1>
         </div>
+        </div> : null
+        }
         { errors && (
           <div>
             <h1>An error occured, please reload the page</h1>
@@ -112,7 +126,6 @@ const Home = () => {
         <CircularIndeterminate 
           loading={loading}
         />
-      
       </>
     )
   

@@ -12,7 +12,7 @@ import {FormControl,
  FormHelperText,
   Input} from "@material-ui/core"
 
-const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChange, disabled, loading }) => (
+const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChange, disabled, loading, handleDelete }) => (
 
   
     <form onSubmit={handleSubmit}>
@@ -117,7 +117,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
             <div className="field">
               <label className="label">Poops</label>
               <div className="select">
-                <select name="Poops" onChange={handleChange} value={symptoms.poops}>
+                <select name="poops" onChange={handleChange} value={symptoms.poops}>
                 <option disabled value="">Pick a type</option>
                   <option value="dashing to the toilet">Dashing to the toilet</option>
                   <option value="constipated">Constipated</option>
@@ -143,7 +143,16 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
         color="primary"
         disabled={disabled}
           >
+
         { disabled ? "Submitting" : "Submit" }
+        </Button>
+        <Button onClick={handleDelete}
+        type='submit'
+        variant="contained"
+        color="primary"
+        disabled={disabled}
+        >
+        { disabled ? "Deleting" : "Delete" }
         </Button>
         <CircularIndeterminate
          loading={loading} 

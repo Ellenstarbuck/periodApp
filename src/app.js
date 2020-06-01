@@ -9,13 +9,16 @@ import PeriodIndex from './components/PeriodIndex'
 import PeriodEdit from './components/PeriodEdit'
 import PeriodNew from './components/PeriodNew'
 import PeriodShow from './components/PeriodShow'
+import Nav from './common/Nav'
+
 
 
 const App = () => (
   <BrowserRouter>
     <main>
+      <Nav />
       <Switch>
-        <Route exact path="/home"component={Home}/>
+        <Route exact path="/"component={Home}/>
         <Route path="/periods/:id/edit" component={PeriodEdit} />
         <Route path="/periods/new" component={PeriodNew}  />
         <Route path="/periods/:id" component={PeriodShow} />

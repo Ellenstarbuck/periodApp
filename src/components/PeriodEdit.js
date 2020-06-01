@@ -70,7 +70,7 @@ const PeriodEdit = () => {
         await axios.put(`/api/periods/${params.id}`, data, {
         headers: { Authorization: `Bearer ${Auth.getToken()}` }
       })
-      history.push(`/periods/`)
+      history.push(`/periods`)
     } catch (err) {
       setErrors(err.data.errors)
     }
@@ -79,9 +79,25 @@ const PeriodEdit = () => {
   }
   
   
+
+  const handleDelete = async() => {
+    try {
+      console.log(params.id)
+      await axios.delete(`/api/periods/${params.id}`, {
+        headers: { Authorization: `Bearer ${Auth.getToken()}` }
+      })  
+      history.push('/periods')
+    } catch (err) {
+      console.log(err)
+    } 
+  
+
+
+  }
+  
   return(
       <div>
-        <PeriodForm date={data.date} symptoms={data.symptoms} loading={loading} disabled={disabled} handleChange={handleChange} handleSubmit={handleSubmit} handleDateChange={handleDateChange}/>
+        <PeriodForm date={data.date} symptoms={data.symptoms} loading={loading} disabled={disabled} handleChange={handleChange} handleSubmit={handleSubmit} handleDateChange={handleDateChange} handleDelete={handleDelete} />
         
       </div>
     )

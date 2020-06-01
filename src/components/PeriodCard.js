@@ -6,7 +6,7 @@ import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
-const PeriodCard = ({ date, symptoms, _id}) => (
+const PeriodCard = ({ date, symptoms, _id }) => (
 
   <div key={_id}>
     <Grid container direction="row" spacing={3} justify="flex-start" alignItems="flex-start">
