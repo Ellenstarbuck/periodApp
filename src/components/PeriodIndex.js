@@ -86,7 +86,7 @@ const PeriodIndex = () => {
     <br /> 
        {data.map(element => {
          if (moment(date).format('YYYYMMDD') === moment(element.date).format('YYYYMMDD')) {
-           return <PeriodCard key={element._id} { ...element } handleDelete={handleDelete}/>
+           return <PeriodCard key={element._id} { ...element }/>
          } 
       })}       
      

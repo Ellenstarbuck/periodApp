@@ -10,7 +10,8 @@ import PeriodEdit from './components/PeriodEdit'
 import PeriodNew from './components/PeriodNew'
 import PeriodShow from './components/PeriodShow'
 import Nav from './common/Nav'
-
+import 'bulma'
+import '../src/styles/main.css'
 
 
 const App = () => (

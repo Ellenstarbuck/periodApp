@@ -108,7 +108,6 @@ const Register = () => {
         color="primary"
         disabled={disabled}
           >
-            Register
         { disabled ? "Registering" : "Register" }
         </Button>
         <CircularIndeterminate

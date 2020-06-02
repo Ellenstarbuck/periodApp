@@ -2,27 +2,105 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import DateFnsUtils from '@date-io/date-fns';
 import {MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import moment from 'moment'
 import CircularIndeterminate from '../common/CircularIndeterminate'
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography'
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { green, purple } from '@material-ui/core/colors';
+import Popover from '@material-ui/core/Popover';
+import Image from '../assets/9219.jpg'
+
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: '#F50D57',
+    backgroundColor: 'white',
+    '&:visited': {
+      backgroundColor: '#970F0E',
+      color: 'white',
+    },
+    '&:hover': {
+      backgroundColor: '#970F0E',
+      color: 'white',
+    },
+  },
+}))(Button);
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 2,
+    margin: theme.spacing(1),
+  },
+  // backgroundPicture: {
+  //   backgroundImage: `url(${Image})`,
+  //   backgroundSize: 'contain'
+  // },
+  submit: {
+    margin: theme.spacing(3, 0, 2)
+  },
+  mainText: {
+    margin: theme.spacing(3),
+  },
+  layout: {
+    width: 'auto',
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: 'auto',
+      marginBottom: 'auto'
+    },
+  },
+  paper: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(7),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
+  },
+  formFun: {
+    border: '1px solid #970F0E',
+    padding: theme.spacing(3, 5, 2)
+  },
+  popoverFun: {
+    padding: theme.spacing(3, 5, 2),
+    color: '#F50D57',
+    border: '30px',
+  }
+}));
+
+
 
 const Home = () => {
 
-
+  const classes = useStyles();
   const [data, setData] = useState({
     dateOfPeriod: new Date(), 
     daysOfPeriod: 5, 
     cycleLength: 28,
   })
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [nextPeriod, setNextPeriod] = useState(null)
   const [errors, setErrors] = useState(false)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(false)
-  const [showPeriod, setShowPeriod] = useState(true)
+  const [showPeriod, setShowPeriod] = useState(false)
+  const [showNextPeriod, setShowNextPeriod] = useState(false)
 
   const handleDateChange = (date) => {
     const result = moment(date).format('MM-DD-YYYY')
@@ -52,21 +130,55 @@ const Home = () => {
 
   const togglePeriod = () => {
     setShowPeriod(!showPeriod)
+    
   }
+
+  // const toggleSubmit = () => {
+  //   setShowNextPeriod(!showNextPeriod)
+    
+  // }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
   
   return (
-    
-    <>
-      <Button
+    <div className="hero-body">
+      <div className={classes.root}>
+        <CssBaseline />
+        <Grid container 
+          direction="column"
+          justify="center"
+          alignItems="center"      
+          spacing={4}
+          
+        >
+      <main className={classes.layout}>    
+      {/* <Grid item xs={8} className={classes.mainText}> 
+        <Typography component="h1" variant="h5" color="secondary" align='center'>PERIODS!</Typography>
+      </Grid> */}
+      
+      
+      <ColorButton
       type="submit"
-      variant="contained"
-      color="primary"
+      variant="contained" 
       onClick={togglePeriod}
       >
-       Want to work out when your next period is due?
-      </Button>
+      <Typography component="h1" variant="h5" className={classes.mainText}>When's your next period due?</Typography>
+      </ColorButton>
+      <br />
+      <br />
+      <br />
+      <Paper>
       { showPeriod === true ? <div>  
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={classes.formFun}>
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
             <KeyboardDatePicker
@@ -85,6 +197,7 @@ const Home = () => {
             />
           </Grid>
     </MuiPickersUtilsProvider>
+    <br />
     <TextField
         variant="outlined"
         label="How long has your your period lasted?"
@@ -104,29 +217,57 @@ const Home = () => {
         fullWidth
         onChange={handleChange}
         />  
-      <Button
+        <br />
+        <br />
+      <ColorButton
+            className={classes.submit}
+            aria-describedby={id}
             type="submit"
-            variant="contained"
-            color="primary"
+            variant="outlined"
+            color="secondary"
+            size="medium"
+            fullWidth
             disabled={disabled}
+            onClick={handleClick}
           >
+            
             { disabled ? "Submitting" : "Submit" }
-          </Button> 
-        </form> 
+          </ColorButton> 
+        </form>
         <div>
-            <h1>Your next period is due on {nextPeriod}</h1>
-        </div>
+          <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >     
+            <Typography component="h5"className={classes.popoverFun}>Your next period is due on {nextPeriod}</Typography>
+            </Popover>
+        </div> 
         </div> : null
         }
-        { errors && (
+        </Paper>
+        </main>
+        {/* { errors && (
           <div>
             <h1>An error occured, please reload the page</h1>
           </div>
         )}
         <CircularIndeterminate 
           loading={loading}
-        />
-      </>
+        /> */}
+        </Grid>
+
+      </div>
+      </div>
     )
   
 
