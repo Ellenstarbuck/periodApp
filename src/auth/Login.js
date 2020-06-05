@@ -32,10 +32,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 2,
     margin: theme.spacing(1),
   },
-  // backgroundPicture: {
-  //   backgroundImage: `url(${Image})`,
-  //   backgroundSize: 'contain'
-  // },
   submit: {
     margin: theme.spacing(3, 0, 2)
   },
@@ -69,11 +65,6 @@ const useStyles = makeStyles((theme) => ({
   formFun: {
     border: '1px solid #970F0E',
     padding: theme.spacing(3, 5, 2)
-  },
-  popoverFun: {
-    padding: theme.spacing(3, 5, 2),
-    color: '#F50D57',
-    border: '30px',
   }
 }));
 

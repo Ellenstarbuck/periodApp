@@ -11,11 +11,25 @@ import {FormControl,
   Select,
  FormHelperText,
   Input} from "@material-ui/core"
+import Typography from '@material-ui/core/Typography'
+import ScheduleIcon from '@material-ui/icons/ScheduleOutlined';
+import OpacityIcon from '@material-ui/icons/Opacity';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
+import BatteryCharging60Icon from '@material-ui/icons/BatteryCharging60';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import HealingIcon from '@material-ui/icons/Healing';
+import AirlineSeatLegroomExtraIcon from '@material-ui/icons/AirlineSeatLegroomExtra';
+import DiscFullIcon from '@material-ui/icons/DiscFull';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';  
 
-const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChange, disabled, loading, handleDelete }) => (
+
+
+const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, ColorButton, handleDateChange, disabled, loading, handleDelete, mainText }) => (
 
   
     <form onSubmit={handleSubmit}>
+       <Typography component="h1" variant="h5" className={mainText}><ScheduleIcon /> Date</Typography>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
             <KeyboardDatePicker
@@ -34,8 +48,11 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
             />
           </Grid>
     </MuiPickersUtilsProvider>
+    <Typography component="h1" variant="h5" className={mainText}>Symptoms</Typography>
     <div className="field">
-              <label className="label">Bleeding</label>
+              <label className="label">
+                <Typography component="h2" variant="h6"className={mainText}><OpacityIcon/> Bleeding</Typography></label>
+                
               <div className="select">
                 <select name="bleeding" onChange={handleChange} value={symptoms.bleeding}>
                 <option disabled value="">Pick a type</option>
@@ -47,7 +64,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Cramps</label>
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}><HealingIcon />Cramps</Typography></label>
               <div className="select">
                 <select name="cramps" onChange={handleChange} value={symptoms.cramps}>
                 <option disabled value="">Pick a type</option>
@@ -59,7 +76,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Boobs</label>
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}> <DiscFullIcon/>Boobs</Typography></label>
               <div className="select">
                 <select name="boobs" onChange={handleChange} value={symptoms.boobs}>
                 <option disabled value="">Pick a type</option>
@@ -69,7 +86,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Mood</label> 
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}><MoodBadIcon />Mood</Typography></label> 
               <div className="select">
                 <select name="mood" onChange={handleChange} value={symptoms.mood}>
                 <option disabled value="">Pick a type</option>
@@ -81,7 +98,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Horny?</label>
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}><FavoriteBorderIcon/>Horny?</Typography></label>
               <div className="select">
                 <select name="sex" onChange={handleChange} value={symptoms.sex}> 
                 <option disabled value="">Pick a type</option>
@@ -92,7 +109,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Food Cravings</label>
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}><FastfoodIcon /> Food Cravings</Typography></label>
               <div className="select">
                 <select name="foodCravings" onChange={handleChange} value={symptoms.foodCravings}>
                 <option disabled value="">Pick a type</option>
@@ -104,7 +121,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Energy</label>
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}><BatteryCharging60Icon/>Energy</Typography></label>
               <div className="select">
                 <select name="energy" onChange={handleChange} value={symptoms.energy}>
                 <option disabled value="">Pick a type</option>
@@ -115,7 +132,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Poops</label>
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}> <AirlineSeatLegroomExtraIcon/>Poops</Typography></label>
               <div className="select">
                 <select name="poops" onChange={handleChange} value={symptoms.poops}>
                 <option disabled value="">Pick a type</option>
@@ -126,7 +143,7 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
               </div>
             </div>
             <div className="field">
-              <label className="label">Bloats</label>
+              <label className="label"><Typography component="h2" variant="h6" className={mainText}><BeachAccessIcon/>Bloats</Typography></label>
               <div className="select">
                 <select name="bloats" onChange={handleChange} value={symptoms.bloats}>
                 <option disabled value="">Pick a type</option>
@@ -137,23 +154,27 @@ const PeriodForm = ({ symptoms, date, handleChange, handleSubmit, handleDateChan
                 </select>
               </div>
             </div>
-            <Button
+            <ColorButton
         type='submit'
-        variant="contained"
-        color="primary"
+        variant="outlined"
+        color="secondary"
+        fullWidth
         disabled={disabled}
           >
-
+        
         { disabled ? "Submitting" : "Submit" }
-        </Button>
-        <Button onClick={handleDelete}
+        </ColorButton>
+        <br />
+        <br />
+        <ColorButton onClick={handleDelete}
         type='submit'
-        variant="contained"
-        color="primary"
+        variant="outlined"
+        fullWidth
+        color="secondary"
         disabled={disabled}
         >
         { disabled ? "Deleting" : "Delete" }
-        </Button>
+        </ColorButton>
         <CircularIndeterminate
          loading={loading} 
 

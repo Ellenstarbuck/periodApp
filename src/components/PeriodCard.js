@@ -1,50 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import ScheduleIcon from '@material-ui/icons/ScheduleOutlined';
+import OpacityIcon from '@material-ui/icons/Opacity';
+import MoodBadIcon from '@material-ui/icons/MoodBad';
+import BatteryCharging60Icon from '@material-ui/icons/BatteryCharging60';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import HealingIcon from '@material-ui/icons/Healing';
+import AirlineSeatLegroomExtraIcon from '@material-ui/icons/AirlineSeatLegroomExtra';
+import DiscFullIcon from '@material-ui/icons/DiscFull';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 
-const PeriodCard = ({ date, symptoms, _id }) => (
+const PeriodCard = ({ date, symptoms, _id, ColorButton, mainText }) => (
+  
 
   <div key={_id}>
-    <Grid container direction="row" spacing={3} justify="flex-start" alignItems="flex-start">
-      <Grid item xs={6} sm={4}>
-      <Box bgcolor="primary.main" color="primary.contrastText" p={2}>
-    <h1>{ (moment(date)).format(('MM-DD-YYYY')) }</h1>
+    <Typography component="h1" variant="h5" className={mainText}>Symptoms</Typography>
+    <Typography component="h1" variant="h6" className={mainText}><ScheduleIcon /> Date: { (moment(date)).format(('MM-DD-YYYY')) }</Typography>
         {symptoms.bleeding && (
-        <h1>Bleeding: {symptoms.bleeding}</h1>
+        <Typography component="h2" variant="h6"className={mainText}><OpacityIcon/> Bleeding: {symptoms.bleeding}</Typography>
         )}
         { symptoms.cramps && (
-          <h1>Cramps: {symptoms.cramps}</h1> 
+          <Typography component="h2" variant="h6" className={mainText}><HealingIcon /> Cramps: {symptoms.cramps}</Typography> 
         )}
         { symptoms.boobs && (
-          <h1>Boobs: {symptoms.boobs}</h1> 
+          <Typography component="h2" variant="h6" className={mainText}> <DiscFullIcon/> Boobs: {symptoms.boobs}</Typography>
         )}
         { symptoms.mood && (
-          <h1>Mood: {symptoms.mood}</h1> 
+          <Typography component="h2" variant="h6" className={mainText}><MoodBadIcon /> Mood: {symptoms.mood}</Typography> 
         )}
         { symptoms.sex && (
-          <h1>Sex: {symptoms.sex}</h1>
+          <Typography component="h2" variant="h6" className={mainText}><FavoriteBorderIcon/> Horny?: {symptoms.sex}</Typography>
         )}
         { symptoms.foodCravings && (
-          <h1>FoodCravings: {symptoms.foodCravings}</h1> 
+          <Typography component="h2" variant="h6" className={mainText}><FastfoodIcon /> Food Cravings: {symptoms.foodCravings}</Typography> 
         )}
         { symptoms.energy && (
-          <h1>Energy: {symptoms.energy}</h1>
+          <Typography component="h2" variant="h6" className={mainText}><BatteryCharging60Icon/> Energy: {symptoms.energy}</Typography>
         )}
         { symptoms.poops && (
-          <h1>Poops: {symptoms.poops}</h1>
+          <Typography component="h2" variant="h6" className={mainText}> <AirlineSeatLegroomExtraIcon/> Poops: {symptoms.poops}</Typography>
         )}    
         { symptoms.bloats && (
-          <h1>Bloats: {symptoms.bloats}</h1>
+          <Typography component="h2" variant="h6" className={mainText}><BeachAccessIcon/> Bloats: {symptoms.bloats}</Typography>
         )}
-        <Link to={`/periods/${_id}/edit`}><Button variant="contained">Edit</Button></Link>
-        
-          </Box>
-      </Grid>
-    </Grid>        
+        <Link to={`/periods/${_id}/edit`}><ColorButton
+        type='submit'
+        variant="outlined"
+        color="secondary"
+        size="medium"
+        fullWidth>Edit</ColorButton></Link>      
 
   </div>
 

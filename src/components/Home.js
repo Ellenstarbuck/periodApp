@@ -161,11 +161,6 @@ const Home = () => {
           
         >
       <main className={classes.layout}>    
-      {/* <Grid item xs={8} className={classes.mainText}> 
-        <Typography component="h1" variant="h5" color="secondary" align='center'>PERIODS!</Typography>
-      </Grid> */}
-      
-      
       <ColorButton
       type="submit"
       variant="contained" 

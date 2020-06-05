@@ -15,6 +15,7 @@
     "@date-io/date-fns": "1.x",
     "@date-io/dayjs": "1.x",
     "@date-io/luxon": "1.x",
+    "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@material-ui/core": "^4.9.12",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
