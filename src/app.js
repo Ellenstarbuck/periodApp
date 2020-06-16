@@ -12,6 +12,7 @@ import PeriodShow from './components/PeriodShow'
 import Nav from './common/Nav'
 import 'bulma'
 import '../src/styles/main.css'
+import frontEnd from './frontEnd/frontEnd'
 
 
 const App = () => (
@@ -26,6 +27,7 @@ const App = () => (
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/periods" component={PeriodIndex} />
+        <Route path='/front' component={frontEnd} />
         
       </Switch>
     </main>
