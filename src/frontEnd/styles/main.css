@@ -1,0 +1,43 @@
+@font-face {
+  font-family: Inter;
+  font-style:  normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../fonts/Inter-Black.woff2') format("woff2"),
+       url('../fonts/Inter-Black.woff') format("woff");
+}
+
+
+.root {
+  --color-primary: #4c2982;
+  --color-secondary: #f9d170;
+  --color-bg: #f9f7f3;
+  --color-text: #252525;
+  --color-light: #f3f3f3;
+  --color-success: #067973;
+  --color-success-bg: #f5fffe;
+  --color-error: #b71540;
+  --color-error-bg: #fdeff3;
+}
+
+.inputTitle {
+  font-family: Inter;
+  color: #4c2982;
+  font-style:  normal;
+  font-weight: 900;
+  font-size: 50px;
+  
+}
+
+
+.hoverFun {
+  width: 100px;
+  height: 100px;
+  background-color: #f9d170;
+}
+
+.hoverFun:hover {
+  cursor: pointer;
+  
+}
+

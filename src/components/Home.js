@@ -95,6 +95,8 @@ const Home = () => {
   })
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+
+
   const [nextPeriod, setNextPeriod] = useState(null)
   const [errors, setErrors] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -118,6 +120,7 @@ const Home = () => {
     setDisabled(true)
     try {
       const res = await axios.post('/api/home', data)
+      console.log(res)
       if (res.data.nextPeriod) {
       setNextPeriod(res.data.nextPeriod)
   }
